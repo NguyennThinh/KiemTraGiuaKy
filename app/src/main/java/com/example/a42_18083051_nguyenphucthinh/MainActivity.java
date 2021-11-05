@@ -6,13 +6,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -21,12 +24,15 @@ public class MainActivity extends AppCompatActivity {
     private Boolean isPlaying;
     private ImageView imgPlay;
     private MusicService mMusicService;
+    private SeekBar seekBar;
+    private Handler handler;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
             MusicService.MyBinder binder = (MusicService.MyBinder) iBinder;
             mMusicService = binder.getService();
             mMusicService.StartMusic();
+            update();
             isPlaying = true;
         }
 
@@ -41,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imgSong = findViewById(R.id.imgSong);
         imgPlay = findViewById(R.id.imgPlay);
+        handler = new Handler();
+        seekBar = findViewById(R.id.seekBar);
         imgRotate();
         imgPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,5 +82,15 @@ public class MainActivity extends AppCompatActivity {
             unbindService(connection);
             isPlaying = false;
         }
+    }
+    private void update() {
+        seekBar.setMax(MusicService.mediaPlayer.getDuration());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                seekBar.setProgress(MusicService.mediaPlayer.getCurrentPosition());
+                handler.postDelayed(this, 1000);
+            }
+        }, 100);
     }
 }
