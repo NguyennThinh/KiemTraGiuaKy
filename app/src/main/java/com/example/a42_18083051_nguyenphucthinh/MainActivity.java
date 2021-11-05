@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         imgSong = findViewById(R.id.imgSong);
+        imgRotate();
     }
     private void imgRotate() {
         Animation animation = AnimationUtils.loadAnimation(this,R.anim.img_xoay);
