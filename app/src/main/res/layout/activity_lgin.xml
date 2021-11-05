@@ -18,14 +18,14 @@
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Email"
+        android:text="nguyenthinhc9@gmail.com"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="120dp"/>
     <EditText
         android:id="@+id/edtPass"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:hint="Password"
+        android:text="123456789"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="40dp"/>
     <Button
@@ -33,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="LOGIN"
+        android:background="@drawable/btn"
         android:layout_marginHorizontal="50dp"
         android:layout_marginTop="40dp"/>
     <ImageView
